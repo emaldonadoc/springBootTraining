@@ -1,4 +1,4 @@
-package com.rlx.command.center.model.repositories;
+package com.rlx.command.center.repositories;
 
 import java.util.List;
 import com.rlx.command.center.model.Person;

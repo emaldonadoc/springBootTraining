@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.rlx.command.center.model.Person;
 import com.rlx.command.center.model.Greeting;
-import com.rlx.command.center.model.repositories.PersonRepository;
+import com.rlx.command.center.repositories.PersonRepository;
 import java.util.*;
 
 @RestController
