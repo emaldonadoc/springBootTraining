@@ -47,7 +47,7 @@ class JsonControllerSpec extends Specification{
         then:
           entity.statusCode == HttpStatus.OK
           Map map = jsonSlurper.parseText(entity.body)
-          assert map.people.class == ArrayList.class
+          assert map.people.class == ArrayList
     }
 
 
