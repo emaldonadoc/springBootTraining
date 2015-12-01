@@ -36,11 +36,11 @@ dependencies {
       'org.springframework.boot:spring-boot-starter-web',
       "org.springframework.boot:spring-boot-starter-data-rest",
       "org.springframework.boot:spring-boot-starter-data-jpa",
-      "com.h2database:h2",
       'mysql:mysql-connector-java:5.1.6'
     )
 
     testCompile(
+      "com.h2database:h2",
       "org.codehaus.groovy:groovy",
       "org.codehaus.groovy:groovy-all:2.2.0",
       'com.google.code.gson:gson:2.5',
