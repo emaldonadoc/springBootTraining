@@ -1,13 +1,28 @@
 server.port: 9999
+
 spring:
-  jpa:
-      hibernate:
-        ddl-auto: update
-      properties:
-         hibernate:
-           dialect: org.hibernate.dialect.MySQL5Dialect
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/CommandCenter
-    username: root
+    username: "root"
     password:
+    dbCreate: update
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+
+environments:
+    test:
+      spring:
+        datasource:
+          driverClassName: org.h2.Driver
+          url: jdbc:h2:mem:TEST;MODE=MySQL
+          dbCreate: create-drop
+    develop:
+      spring:
+        datasource:
+          driverClassName: com.mysql.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/CommandCenter
+          username: "root"
+          password:
+          dbCreate: update

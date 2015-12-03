@@ -12,12 +12,14 @@ import org.springframework.web.client.RestTemplate
 import spock.lang.AutoCleanup
 import spock.lang.Shared
 import spock.lang.Specification
+import org.springframework.test.context.ActiveProfiles
 
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
+@ActiveProfiles("test")
 class JsonControllerSpec extends Specification{
 
    @Shared
@@ -47,6 +49,7 @@ class JsonControllerSpec extends Specification{
         then:
           entity.statusCode == HttpStatus.OK
           Map map = jsonSlurper.parseText(entity.body)
+          println "MAP FROM RESPONSE >>>>>>>>>> ${map.people}"
           assert map.people.class == ArrayList
     }
 
