@@ -44,7 +44,6 @@ dependencies {
       "org.codehaus.groovy:groovy",
       "org.codehaus.groovy:groovy-all:2.2.0",
       'com.google.code.gson:gson:2.5',
-      'org.springframework.boot:spring-boot-starter-test',
       "org.spockframework:spock-core:0.7-groovy-2.0"
       )
 }

@@ -12,14 +12,13 @@ import org.springframework.web.client.RestTemplate
 import spock.lang.AutoCleanup
 import spock.lang.Shared
 import spock.lang.Specification
-import org.springframework.test.context.ActiveProfiles
+
 
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
-@ActiveProfiles("test")
 class JsonControllerSpec extends Specification{
 
    @Shared
