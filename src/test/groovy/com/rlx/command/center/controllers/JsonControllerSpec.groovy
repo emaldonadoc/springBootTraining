@@ -2,7 +2,8 @@ package com.rlx.command.center.controllers
 
 import groovy.json.JsonSlurper
 import com.rlx.command.center.model.Person
-import com.rlx.command.center.CommandCenterApplication;
+import com.rlx.command.center.repositories.PersonRepository
+import com.rlx.command.center.CommandCenterApplication
 
 import org.springframework.boot.SpringApplication
 import org.springframework.context.ConfigurableApplicationContext
@@ -41,6 +42,11 @@ class JsonControllerSpec extends Specification{
     void "Should return all persons in DB" (){
         setup:
           JsonSlurper jsonSlurper = new JsonSlurper()
+          PersonRepository repo = context.getBean(PersonRepository.class);
+          Person person = new Person()
+          person.setFirstName("steve")
+          person.setLastName("jobs")
+          repo.save(person)
 
         when:
           ResponseEntity entity = new RestTemplate().getForEntity("http://localhost:9999/people", String.class)
@@ -48,8 +54,9 @@ class JsonControllerSpec extends Specification{
         then:
           entity.statusCode == HttpStatus.OK
           Map map = jsonSlurper.parseText(entity.body)
-          println "MAP FROM RESPONSE >>>>>>>>>> ${map.people}"
           assert map.people.class == ArrayList
+          assert map.people[0].firstName == "steve"
+          assert map.people[0].lastName == "jobs"
     }
 
 
