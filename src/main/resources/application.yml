@@ -1,26 +1,22 @@
 server.port: 9999
-
+---
+spring.profiles.active: test
+---
 spring:
-  datasource:
+  profiles: test
+spring.datasource:
     driverClassName: org.h2.Driver
     url: jdbc:h2:mem:TEST;MODE=MySQL
     dbCreate: create-drop
-  jpa:
+---
+spring:
+  profiles: develop
+spring.datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/CommandCenter
+    username: "root"
+    password:
+    dbCreate: update
+spring.jpa:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5Dialect
-
-environments:
-    test:
-      spring:
-        datasource:
-          driverClassName: org.h2.Driver
-          url: jdbc:h2:mem:TEST;MODE=MySQL
-          dbCreate: create-drop
-    develop:
-      spring:
-        datasource:
-          driverClassName: com.mysql.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/CommandCenter
-          username: "root"
-          password:
-          dbCreate: update
