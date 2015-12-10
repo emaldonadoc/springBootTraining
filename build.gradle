@@ -51,3 +51,14 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.7'
 }
+
+task dev{
+    bootRun { systemProperty "spring.profiles.active", "develop" }
+}
+
+bootRun.mustRunAfter dev
+
+/*bootRun {
+    println "System properties log--->   ${System.properties["spring.profiles.active"]}"
+    systemProperties System.properties
+}*/
