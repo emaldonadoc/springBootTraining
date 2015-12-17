@@ -9,7 +9,10 @@ import org.springframework.boot.SpringApplication
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.HttpEntity
 import org.springframework.web.client.RestTemplate
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
 import spock.lang.AutoCleanup
 import spock.lang.Shared
 import spock.lang.Specification
@@ -25,6 +28,8 @@ class JsonControllerSpec extends Specification{
    @Shared
    @AutoCleanup
    ConfigurableApplicationContext context
+
+   final String SERVER_URI ="http://localhost:9999"
 
    void setupSpec() {
        Future future = Executors
@@ -49,7 +54,7 @@ class JsonControllerSpec extends Specification{
           repo.save(person)
 
         when:
-          ResponseEntity entity = new RestTemplate().getForEntity("http://localhost:9999/people", String.class)
+          ResponseEntity entity = new RestTemplate().getForEntity(SERVER_URI + "/people", String.class)
 
         then:
           entity.statusCode == HttpStatus.OK
@@ -57,6 +62,24 @@ class JsonControllerSpec extends Specification{
           assert map.people.class == ArrayList
           assert map.people[0].firstName == "steve"
           assert map.people[0].lastName == "jobs"
+    }
+
+
+    void "Should to save Person on DB" (){
+      setup:
+        JsonSlurper jS = new JsonSlurper()
+        String json = "{\"name\":\"Han\", \"lastName\":\"Solo\", \"phone\":\"000000\"}"
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json")
+        HttpEntity<String> requestEntity = new HttpEntity<String>(json, headers);
+
+      when:
+        ResponseEntity entity = new RestTemplate().exchange(SERVER_URI+"/addPerson", HttpMethod.PUT, requestEntity, String.class)
+
+      then:
+        println "ENTITY -----> ${entity.dump()}"
+        false
+
     }
 
 
