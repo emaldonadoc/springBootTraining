@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.RestController;
 import com.rlx.command.center.model.Person;
 import com.rlx.command.center.model.Greeting;
@@ -35,7 +36,7 @@ public class JsonController {
     }
 
     @RequestMapping(value = "/addPerson", method = RequestMethod.POST)
-    public Person addPerson(@RequestBody Person person){
+    public Person addPerson(@Valid @RequestBody Person person){
       return personRepository.save(person);
     }
 }
