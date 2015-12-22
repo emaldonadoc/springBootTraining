@@ -16,6 +16,7 @@ import org.springframework.http.HttpMethod
 import spock.lang.AutoCleanup
 import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.Unroll
 
 
 import java.util.concurrent.Callable
@@ -64,23 +65,28 @@ class JsonControllerSpec extends Specification{
           assert map.people[0].lastName == "jobs"
     }
 
-
-    void "Should to save Person on DB" (){
+    @Unroll
+    void "Should to save Person on DB with Value name: #first, last: #last, phone: #phone" (){
       setup:
-        JsonSlurper jS = new JsonSlurper()
-        String json = "{\"name\":\"Han\", \"lastName\":\"Solo\", \"phone\":\"000000\"}"
+        JsonSlurper jsonSlurper = new JsonSlurper()
+        String json = "{\"firstName\":\"${first}\", \"lastName\":\"${last}\", \"phone\":\"${phone}\"}"
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json")
         HttpEntity<String> requestEntity = new HttpEntity<String>(json, headers);
 
       when:
-        ResponseEntity entity = new RestTemplate().exchange(SERVER_URI+"/addPerson", HttpMethod.PUT, requestEntity, String.class)
+        ResponseEntity entity = new RestTemplate().exchange(SERVER_URI+"/addPerson", HttpMethod.POST, requestEntity, String.class)
 
       then:
-        println "ENTITY -----> ${entity.dump()}"
-        false
+        entity.statusCode == HttpStatus.OK
+        Map map = jsonSlurper.parseText(entity.body)
+        map.firstName == first
+        map.lastName == last
+        map.phone == phone
 
+      where:
+      first | last   | phone
+      "Han" | "Solo" | "123456"
+      "Han" | "Solo" | ""
     }
-
-
 }

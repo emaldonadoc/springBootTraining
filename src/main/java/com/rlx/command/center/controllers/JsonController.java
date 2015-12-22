@@ -3,7 +3,9 @@ package com.rlx.command.center.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.rlx.command.center.model.Person;
 import com.rlx.command.center.model.Greeting;
@@ -30,5 +32,10 @@ public class JsonController {
       Map<String,List<Person>> people = new HashMap<String,List<Person>>();
       people.put("people", personRepository.getAll());
       return people;
+    }
+
+    @RequestMapping(value = "/addPerson", method = RequestMethod.POST)
+    public Person addPerson(@RequestBody Person person){
+      return personRepository.save(person);
     }
 }
