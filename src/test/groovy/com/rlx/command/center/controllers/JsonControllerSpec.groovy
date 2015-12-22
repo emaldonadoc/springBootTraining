@@ -89,4 +89,25 @@ class JsonControllerSpec extends Specification{
       "Han" | "Solo" | "123456"
       "Han" | "Solo" | ""
     }
+
+    @Unroll
+    void "Should dont save Person by fail validation with Value name: #first, last: #last, phone: #phone" (){
+      setup:
+        String json = "{\"firstName\":${first}, \"lastName\":${last}, \"phone\":\"${phone}\"}"
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json")
+        HttpEntity<String> requestEntity = new HttpEntity<String>(json, headers);
+
+      when:
+        new RestTemplate().exchange(SERVER_URI+"/addPerson", HttpMethod.POST, requestEntity, String.class)
+
+      then:
+        thrown(org.springframework.web.client.HttpClientErrorException)
+
+      where:
+      first | last   | phone
+      null  | "Solo" | "123456"
+      "Han" | null   | ""
+
+    }
 }
