@@ -106,8 +106,8 @@ class JsonControllerSpec extends Specification{
 
       where:
       first | last   | phone
-      null  | "Solo" | "123456"
-      "Han" | null   | ""
+      null  | "\"Solo\"" | "123456"
+      "\"Han\"" | null   | ""
 
     }
 }
