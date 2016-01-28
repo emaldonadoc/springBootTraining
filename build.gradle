@@ -58,8 +58,3 @@ task dev{
 }
 
 bootRun.mustRunAfter dev
-
-/*bootRun {
-    println "System properties log--->   ${System.properties["spring.profiles.active"]}"
-    systemProperties System.properties
-}*/
