@@ -4,6 +4,6 @@ build/*
 gradle/*
 .gradle/*
 .idea/*
-springBootTraining.ipr
-springBootTraining.iws
-
+*.ipr
+*.iws
+*.iml
