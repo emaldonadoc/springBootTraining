@@ -75,7 +75,7 @@ class JsonControllerSpec extends Specification{
         HttpEntity<String> requestEntity = new HttpEntity<String>(json, headers);
 
       when:
-        ResponseEntity entity = new RestTemplate().exchange(SERVER_URI+"/addPerson", HttpMethod.POST, requestEntity, String.class)
+        ResponseEntity entity = new RestTemplate().exchange(SERVER_URI+"/person", HttpMethod.POST, requestEntity, String.class)
 
       then:
         entity.statusCode == HttpStatus.OK
@@ -99,7 +99,7 @@ class JsonControllerSpec extends Specification{
         HttpEntity<String> requestEntity = new HttpEntity<String>(json, headers);
 
       when:
-        new RestTemplate().exchange(SERVER_URI+"/addPerson", HttpMethod.POST, requestEntity, String.class)
+        new RestTemplate().exchange(SERVER_URI+"/person", HttpMethod.POST, requestEntity, String.class)
 
       then:
         thrown(org.springframework.web.client.HttpClientErrorException)

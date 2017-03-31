@@ -35,7 +35,7 @@ public class JsonController {
       return people;
     }
 
-    @RequestMapping(value = "/addPerson", method = RequestMethod.POST)
+    @RequestMapping(value = "/person", method = RequestMethod.POST)
     public Person addPerson(@Valid @RequestBody Person person){
       return personRepository.save(person);
     }
