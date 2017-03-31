@@ -28,7 +28,7 @@ public class JsonController {
                             String.format(template, name));
     }
 
-    @RequestMapping("/people")
+    @RequestMapping(value="/people", method = {RequestMethod.GET})
     public Map getAllPeople(){
       Map<String,List<Person>> people = new HashMap<String,List<Person>>();
       people.put("people", personRepository.getAll());
